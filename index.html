@@ -1,167 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Conversor de classes C# para classes Javascript</title>
-</head>
-<body>
+  </head>
+  <body>
     <main>
-        <div class="lado-cs">
-            <textarea spellcheck="false" class="codigo"></textarea>
-        </div>
-        <div class="lado-js">
-            <textarea spellcheck="false" class="codigo"></textarea>
-        </div>
+      <div class="lado-cs">
+        <textarea spellcheck="false" class="codigo"></textarea>
+      </div>
+      <div class="lado-js">
+        <textarea spellcheck="false" class="codigo"></textarea>
+      </div>
     </main>
-</body>
+  </body>
 </html>
 
 <script>
-const editorCs = document.querySelector('.lado-cs textarea');
-editorCs.addEventListener('input', (e)=>{
+  const editorCs = document.querySelector(".lado-cs textarea");
+  editorCs.addEventListener("input", (e) => {
     main(e.target.value);
-})
-function main(codigoCS) {
+  });
+  function main(codigoCS) {
     const regexPropsCs = /public .+ .+;/gm;
     const propsCs = codigoCS.match(regexPropsCs);
 
     var classeJs = `constructor () {
     $
-}`
-    if(propsCs == null){
-        return;
+}`;
+    if (propsCs == null) {
+      return;
     }
     const valoresIniciais = {
-        string: `''`,
-        guid: `''`,
-        int: 0,
-        double: 0,
-        decimal: 0,
-        float: 0,
-        datetime: 'new Date()',
-        object: '{}',
-        list: `[]`,
-        ienumerable: `[]`,
-        bool: 'false',
-    }
-    propsCs.forEach(propriedade => {
-        let propriedadeSepadara = propriedade.split(' ')
+      string: `''`,
+      guid: `''`,
+      int: 0,
+      double: 0,
+      decimal: 0,
+      float: 0,
+      datetime: "new Date()",
+      object: "{}",
+      list: `[]`,
+      ienumerable: `[]`,
+      bool: "false",
+    };
+    propsCs.forEach((propriedade) => {
+      let propriedadeSepadara = propriedade.split(" ");
 
-
-
-
-        let nomeTipo = propriedadeSepadara[1].replace('?', '').replace(/<.+>/gm,'').toLocaleLowerCase();
-        let nomeVariavel = propriedadeSepadara[2].replaceAll(';', '');
-        classeJs =  classeJs.replaceAll(`$`, `this.${nomeVariavel} = ${valoresIniciais[nomeTipo] != undefined ? valoresIniciais[nomeTipo] : '{}' };
-    $`);
-
+      let nomeTipo = propriedadeSepadara[1]
+        .replace("?", "")
+        .replace(/<.+>/gm, "")
+        .toLocaleLowerCase();
+      let nomeVariavel = propriedadeSepadara[2].replaceAll(";", "");
+      classeJs = classeJs.replaceAll(
+        `$`,
+        `this.${nomeVariavel} = ${
+          valoresIniciais[nomeTipo] != undefined
+            ? valoresIniciais[nomeTipo]
+            : "{}"
+        };
+    $`
+      );
     });
 
-    classeJs = classeJs.replaceAll('$', '');
-    document.querySelector('.lado-js textarea').value = classeJs
-
-}
+    classeJs = classeJs.replaceAll("$", "");
+    document.querySelector(".lado-js textarea").value = classeJs;
+  }
 </script>
 
 <style>
-    *,
-    *::before,
-    *::after{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    html, body{
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-    }
-    body {
-        height: 100%;
-        background-color: #282c34;
-    }
+  *,
+  *::before,
+  *::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  html,
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  body {
+    height: 100%;
+    background-color: #282c34;
+  }
 
-    main{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
+  main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 
-    main > div{
-        width: 300px;
-        height: 300px;
-        overflow: hidden;
-        box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
-    }
+  main > div {
+    height: 500px;
+    width: 500px;
+    /* faltava colocar o relative no pai */
+    position: relative;
 
-    main > div::before{
-        content: '';
-        z-index: -1;
-        width: 305px;
-        height: 305px;
-        margin: -3px;
-        border-radius: 5px;
-        position: absolute;
-        /* transition: .5s; */
-        background: conic-gradient(
-            #fd004c,
-            #fe9000,
-            #fff020,
-            #3edf4b,
-            #3363ff,
-            #b102b7,
-            #fd004c
-        );
-        animation: spin 1.5s infinite linear;
-    }
 
-    .codigo{
-        resize: none;
-        width: 100%;
-        height: 100%;
-        background-color: #21252b;
-        border-radius: 5px;
-        border-color: transparent;
-        color: #606368;
-    }
 
-    .codigo:focus{
-        outline: none;
-    }
+    border-radius: 5px;
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 
-    @keyframes spin {
-        100%{
-            transform: rotate(-360deg);
-        }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main > div::before {
+    content: "";
+    /* aqui tinha que ser porcentagem e não valor fixo */
+    height: 150%;
+    width: 150%;
+    z-index: -1;
+    position: absolute;
+    background: conic-gradient(
+      #fd004c,
+      #fe9000,
+      #fff020,
+      #3edf4b,
+      #3363ff,
+      #b102b7,
+      #fd004c
+    );
+    animation: spin 10.5s infinite linear;
+  }
+
+  .codigo {
+    resize: none;
+    width: 98%;
+    height: 98%;
+    background-color: #21252b;
+    border-radius: 5px;
+    border-color: transparent;
+    color: #606368;
+    font-size: 20px;
+  }
+
+  .codigo:focus {
+    outline: none;
+  }
+
+  @keyframes spin {
+    100% {
+      transform: rotate(-360deg);
     }
-    @keyframes teste {
-        0%{
-            background: conic-gradient(
-                #fd004c,
-                #fe9000,
-                #fff020,
-                #3edf4b,
-                #3363ff,
-                #b102b7,
-                #fd004c
-            );
-        }
-        100%{
-            background: conic-gradient(
-                #3363ff,
-                #fd004c,
-                #fe9000,
-                #fff020,
-                #3edf4b,
-                #b102b7,
-                #fd004c
-            );
-        }
+  }
+  @keyframes teste {
+    0% {
+      background: conic-gradient(
+        #fd004c,
+        #fe9000,
+        #fff020,
+        #3edf4b,
+        #3363ff,
+        #b102b7,
+        #fd004c
+      );
     }
+    100% {
+      background: conic-gradient(
+        #3363ff,
+        #fd004c,
+        #fe9000,
+        #fff020,
+        #3edf4b,
+        #b102b7,
+        #fd004c
+      );
+    }
+  }
 </style>
-
