@@ -49,6 +49,9 @@ function main(codigoCS) {
     propsCs.forEach(propriedade => {
         let propriedadeSepadara = propriedade.split(' ')
 
+
+
+
         let nomeTipo = propriedadeSepadara[1].replace('?', '').replace(/<.+>/gm,'').toLocaleLowerCase();
         let nomeVariavel = propriedadeSepadara[2].replaceAll(';', '');
         classeJs =  classeJs.replaceAll(`$`, `this.${nomeVariavel} = ${valoresIniciais[nomeTipo] != undefined ? valoresIniciais[nomeTipo] : '{}' };
