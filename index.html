@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Conversor de classes C# para classes Javascript</title>
+    <title>Traspilador de C# para JS</title>
   </head>
   <body>
     <main>
@@ -40,7 +40,7 @@
       double: 0,
       decimal: 0,
       float: 0,
-      datetime: "new Date()",
+      datetime: "null",
       object: "{}",
       list: `[]`,
       ienumerable: `[]`,
@@ -122,15 +122,7 @@
     width: 150%;
     z-index: -1;
     position: absolute;
-    background: conic-gradient(
-      #fd004c,
-      #fe9000,
-      #fff020,
-      #3edf4b,
-      #3363ff,
-      #b102b7,
-      #fd004c
-    );
+    background: #3363ff;
     animation: spin 10.5s infinite linear;
   }
 
@@ -141,7 +133,7 @@
     background-color: #21252b;
     border-radius: 5px;
     border-color: transparent;
-    color: #606368;
+    color: #d7dbe0;
     font-size: 20px;
   }
 
