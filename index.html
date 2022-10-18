@@ -56,11 +56,7 @@
       let nomeVariavel = propriedadeSepadara[2].replaceAll(";", "");
       classeJs = classeJs.replaceAll(
         `$`,
-        `this.${nomeVariavel} = ${
-          valoresIniciais[nomeTipo] != undefined
-            ? valoresIniciais[nomeTipo]
-            : "{}"
-        };
+        `this.${nomeVariavel} = undefined;
     $`
       );
     });
